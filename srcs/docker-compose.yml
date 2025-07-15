@@ -11,6 +11,9 @@ services:
       - wordpress_data:/var/www/html
     networks:
       - inception
+    env_file:
+      - .env
+
 
   wordpress:
     build: ./requirements/wordpress
@@ -37,6 +40,9 @@ services:
       - mariadb_data:/var/lib/mysql
     networks:
       - inception
+    env_file:
+      - .env
+
 
 volumes:
   wordpress_data:
