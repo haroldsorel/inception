@@ -1,6 +1,14 @@
-FROM nginx:1.25
+FROM debian:bookworm
 
-COPY conf/hsorel.crt /etc/ssl/certs/server.crt
-COPY conf/hsorel.key /etc/ssl/private/server.key
+#installs necessary software for nginx
+RUN apt update -y && apt upgrade -y && apt install -y \
+    nginx \
+    curl 
 
-COPY conf/default.conf /etc/nginx/conf.d/default.conf
+#copies nginx conf from my computer to the container si it undertands what to :
+# Pass PHP scripts
+
+COPY conf/default.conf /etc/nginx/sites-available/.
+
+#what is cmd for again...
+CMD ["nginx", "-g", "daemon off;"]

@@ -1,11 +1,14 @@
 FROM debian:bookworm
 
-RUN apt update && \
-    apt install -y mariadb-server && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update -y && apt-get install -y \
+    mariadb-server
 
-COPY ./conf/start.sh /start.sh
-RUN chmod +x /start.sh
+COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d/.
 
-ENTRYPOINT ["/start.sh"]
-EXPOSE 3306
+#add permissions?
+RUN mkdir -p /run/mysqld
+
+COPY conf/init.sql /etc/mysql/init.sql 
+
+#cannot be run with mysqld because there is no inventory for sockets in debian
+CMD ["mysqld"]
