@@ -8,7 +8,7 @@ RUN apt update -y && apt upgrade -y && apt install -y \
 #copies nginx conf from my computer to the container si it undertands what to :
 # Pass PHP scripts
 
-COPY conf/default.conf /etc/nginx/sites-available/.
+COPY conf/default.conf /etc/nginx/sites-available/default
 
 #what is cmd for again...
 CMD ["nginx", "-g", "daemon off;"]

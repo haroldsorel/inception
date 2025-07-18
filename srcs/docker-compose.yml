@@ -5,18 +5,33 @@ services:
   nginx:
     build: ./requirements/nginx
     container_name: nginx
+    depends_on: #controls start order but no readyness! this is a security
+      - wordpress
+      - mariadb
     ports:
-      - "8080:80" # Forwards requests from host port 8080 to container's HTTPS port 443
+      - "8080:8080" # Forwards requests from host port 8080 to container's HTTPS port 443
     volumes: #volume makes it that several containers can share a common file (called web) that is stored in the host machine or docker
       - ./web:/var/www/html #called web on my computer and this on the containers
+    networks:
+      inception:
 
   wordpress:
     build: ./requirements/wordpress
     container_name: wordpress
+    depends_on:
+      - mariadb
     volumes:
       - ./web:/var/www/html
+    networks:
+      inception:
 
   mariadb:
     build: ./requirements/mariadb
-    container_name: mariadb 
+    container_name: mariadb
+    volumes:
+      - ./database:/var/lib/mysql
+    networks:
+      inception:
 
+networks:
+  inception:
