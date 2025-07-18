@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#wait for everything else to setup
+#wait for everything else to setup CHANGE THIS SOON
 sleep 10
 
 cd /var/www/html
@@ -19,7 +19,7 @@ chmod +x wp-cli.phar
 
 #change localhost 8080 to 80!
 ./wp-cli.phar core install \
-    --url=http://localhost:8080 \
+    --url=https://localhost:8080 \
     --title="Inception" \
     --admin_user=admin \
     --admin_password=admin \
