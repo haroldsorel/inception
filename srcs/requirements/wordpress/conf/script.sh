@@ -10,21 +10,30 @@ chmod +x wp-cli.phar
 
 ./wp-cli.phar core download --allow-root
 
+#creates the wp-config.php (creates the database, in this case MariaDB credentials)
+#tells wordpress how to connect to mariaDB
 ./wp-cli.phar config create \
-    --dbname=wordpress \
-    --dbuser=wpuser \
-    --dbpass=wppassword \
+    --dbname=$MARIADB_NAME \
+    --dbuser=$MARIADB_USER_NAME \
+    --dbpass=$MARIADB_WP_PASSW \
     --dbhost=mariadb \
-    --allow-root
+    --allow-root #by default wordpress runs as a user and not root but you are a root in  the container so just put this to avoid an error 
 
 #change localhost 8080 to 80!
 ./wp-cli.phar core install \
-    --url=https://localhost:8080 \
+    --url=$DOMAIN_NAME \
     --title="Inception" \
-    --admin_user=admin \
-    --admin_password=admin \
-    --admin_email=admin@admin.com \
+    --admin_user=$WP_ADMIN_USR \
+    --admin_password=$WP_ADMIN_PASSW \
+    --admin_email=$WP_ADMIN_EMAIL \
     --allow-root
+
+./wp-cli.phar user create \
+    $WP_STD_USR \
+    $WP_STD_EMAIL \
+    --user_pass=$WP_STD_PASSW \
+    --role=editor \
+    --allow-root #have a doubt on role editor
 
 #to map to 8080 because it was redirecting to 80 before
 #./wp-cli.phar option update siteurl http://localhost:8080 --allow-root
