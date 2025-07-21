@@ -36,8 +36,8 @@ chmod +x wp-cli.phar
     --allow-root #have a doubt on role editor
 
 #to map to 8080 because it was redirecting to 80 before
-#./wp-cli.phar option update siteurl http://localhost:8080 --allow-root
-#./wp-cli.phar option update home http://localhost:8080 --allow-root
+./wp-cli.phar option update siteurl http://hsorel.42.fr --allow-root
+./wp-cli.phar option update home http://hsorel.42.fr --allow-root
 
 #chown -R wordpress:wordpress /var/www/html
 #chmod -R 755 /var/www/html
