@@ -1,4 +1,4 @@
 .env
-.key
-.crt
+srcs/requirements/conf/hsorel.crt
+srcs/requirements/conf/hsorel.key
 .vscode
