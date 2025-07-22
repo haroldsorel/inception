@@ -1,5 +1,5 @@
 .env
 .DS_Store
-srcs/requirements/conf/hsorel.crt
-srcs/requirements/conf/hsorel.key
+srcs/requirements/nginx/conf/hsorel.crt
+srcs/requirements/nginx/conf/hsorel.key
 .vscode
