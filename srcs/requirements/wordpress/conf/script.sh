@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #wait for everything else to setup CHANGE THIS SOON
-sleep 10
+sleep 20
 
 cd /var/www/html
 
@@ -14,8 +14,8 @@ chmod +x wp-cli.phar
 #tells wordpress how to connect to mariaDB
 ./wp-cli.phar config create \
     --dbname=$MARIADB_NAME \
-    --dbuser=$MARIADB_USER_NAME \
-    --dbpass=$MARIADB_WP_PASSW \
+    --dbuser=$MARIADB_USER \
+    --dbpass=$MARIADB_USER_PASSW \
     --dbhost=mariadb \
     --allow-root #by default wordpress runs as a user and not root but you are a root in  the container so just put this to avoid an error 
 
@@ -32,12 +32,8 @@ chmod +x wp-cli.phar
     $WP_STD_USR \
     $WP_STD_EMAIL \
     --user_pass=$WP_STD_PASSW \
-    --role=editor \
+    --role=author \
     --allow-root #have a doubt on role editor
-
-#to map to 8080 because it was redirecting to 80 before
-./wp-cli.phar option update siteurl https://localhost --allow-root
-./wp-cli.phar option update home https://localhost --allow-root
 
 #chown -R wordpress:wordpress /var/www/html
 #chmod -R 755 /var/www/html
