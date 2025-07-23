@@ -15,7 +15,7 @@ chmod +x wp-cli.phar
 ./wp-cli.phar config create \
     --dbname=$MARIADB_NAME \
     --dbuser=$MARIADB_USER \
-    --dbpass=$MARIADB_USER_PASSW \
+    --dbpass=$MARIADB_USER_PASSWORD \
     --dbhost=mariadb \
     --allow-root #by default wordpress runs as a user and not root but you are a root in  the container so just put this to avoid an error 
 
@@ -23,15 +23,15 @@ chmod +x wp-cli.phar
 ./wp-cli.phar core install \
     --url=$DOMAIN_NAME \
     --title="Inception" \
-    --admin_user=$WP_ADMIN_USR \
-    --admin_password=$WP_ADMIN_PASSW \
+    --admin_user=$WP_ADMIN_USER \
+    --admin_password=$WP_ADMIN_PASSWORD \
     --admin_email=$WP_ADMIN_EMAIL \
     --allow-root
 
 ./wp-cli.phar user create \
-    $WP_STD_USR \
-    $WP_STD_EMAIL \
-    --user_pass=$WP_STD_PASSW \
+    $WP_USER \
+    $WP_USER_EMAIL \
+    --user_pass=$WP_USER_PASSWORD \
     --role=author \
     --allow-root #have a doubt on role editor
 

@@ -33,11 +33,11 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     printf 'Setting up database...\n'
     mariadb -u root <<EOF
     DROP DATABASE IF EXISTS test;
-    ALTER USER 'root'@'localhost' IDENTIFIED BY '${MARIADB_ROOT_PASSW}';
+    ALTER USER 'root'@'localhost' IDENTIFIED BY '${MARIADB_ROOT_PASSWORD}';
     DELETE FROM mysql.user WHERE user='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
     DELETE FROM mysql.user WHERE user='';
     CREATE DATABASE IF NOT EXISTS \`${MARIADB_NAME}\` CHARACTER SET utf8 COLLATE utf8_general_ci;
-    CREATE USER IF NOT EXISTS '${MARIADB_USER}'@'%' IDENTIFIED BY '${MARIADB_USER_PASSW}';
+    CREATE USER IF NOT EXISTS '${MARIADB_USER}'@'%' IDENTIFIED BY '${MARIADB_USER_PASSWORD}';
     GRANT ALL PRIVILEGES ON \`${MARIADB_NAME}\`.* TO '${MARIADB_USER}'@'%';
     FLUSH PRIVILEGES;
 EOF
@@ -45,7 +45,7 @@ EOF
     printf 'Database Set!\n'
 
     # Shutdown temp MariaDB to lock-in new configuration
-    mysqladmin -u root -p"${MARIADB_ROOT_PASSW}" shutdown
+    mysqladmin -u root -p"${MARIADB_ROOT_PASSWORD}" shutdown
 fi
 
 chmod -R 777 /var/lib/mysql
