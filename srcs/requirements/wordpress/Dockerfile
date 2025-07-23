@@ -12,7 +12,8 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install -y \
     php-zip \
     php-soap \
     php-intl \
-    php-cli
+    php-cli \
+    mariadb-client
 
 #copies my conf to the container. Changes the default
 # /run/php/php8.2-fpm.sock address to wp-php:9000

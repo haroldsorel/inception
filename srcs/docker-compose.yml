@@ -12,7 +12,7 @@ services:
     ports:
       - "8080:443" # Forwards requests from host port 443 to container's HTTPS port 443
     volumes: #volume makes it that several containers can share a common file (called web) that is stored in the host machine or docker
-      - /home/hsorel/data/wordpress:/var/www/html #called web on my computer and this on the containers
+      - ./wordpress:/var/www/html #called web on my computer and this on the containers
     networks:
       inception:
     restart: always
@@ -24,7 +24,7 @@ services:
     depends_on:
       - mariadb
     volumes:
-      - /home/hsorel/data/wordpress:/var/www/html
+      - ./wordpress:/var/www/html
     env_file:
       .env
     networks:
@@ -36,7 +36,7 @@ services:
     container_name: mariadb
     image: mariadb
     volumes:
-      - /home/hsorel/data/database:/var/lib/mysql
+      - ./database:/var/lib/mysql
     networks:
       inception:
     env_file:
@@ -46,3 +46,19 @@ services:
 networks:
   inception:
     driver: bridge
+
+volumes:
+
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/hsorel/data/mariadb1
+      o: bind
+
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/hsorel/data/wordpress1
+      o: bind
